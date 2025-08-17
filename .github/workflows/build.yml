@@ -42,6 +42,11 @@ jobs:
         run: |
           cp xiaomi-alioth.cfg ~/.config/pmbootstrap_v3.cfg
 
+      - name: Overlay fixed deviceinfo
+        run: |
+          mkdir -p ~/.local/var/pmbootstrap/cache_git/pmaports/device/xiaomi-alioth
+          cp device/xiaomi-alioth/deviceinfo ~/.local/var/pmbootstrap/cache_git/pmaports/device/xiaomi-alioth/deviceinfo
+
       - name: Compile kernel with envkernel
         run: |
           cd linux
@@ -54,10 +59,6 @@ jobs:
       - name: Create artifact directory
         run: |
           mkdir out
-
-      - name: Overlay fixed deviceinfo
-        run: |
-          cp device/xiaomi-alioth/deviceinfo ~/.local/var/pmbootstrap/cache_git/pmaports/device/xiaomi-alioth/deviceinfo
 
       - name: Build xiaomi-alioth
         run: |
