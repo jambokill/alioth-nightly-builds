@@ -67,7 +67,6 @@ jobs:
           pmbootstrap export
           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-tianma-alioth.img
           cp /tmp/postmarketOS-export/xiaomi-alioth.img out/rootfs-xiaomi-alioth.img
-          cp /tmp/postmarketOS-export/pmos-xiaomi-alioth.zip out/pmos-xiaomi-alioth.zip
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
