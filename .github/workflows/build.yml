@@ -21,7 +21,10 @@ jobs:
 
       - name: Install pmbootstrap from git
         run: |
-          git clone --depth=1 https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git
+          git clone https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git
+          cd pmbootstrap
+          git checkout a33112c2113d6e4ec6e94daef634896422309aff
+          cd ..
           mkdir -p ~/.local/bin
           ln -s "$PWD/pmbootstrap/pmbootstrap.py" ~/.local/bin/pmbootstrap
           pmbootstrap --version
@@ -36,16 +39,14 @@ jobs:
 
       - name: Clone kernel sources
         run: |
-          git clone https://github.com/mainlining/linux.git --single-branch --branch nikroks/alioth --depth 1 ./linux
+          git clone https://github.com/mainlining/linux.git ./linux
+          cd linux
+          git checkout 732032692f6ae311bc35159b18e5b7c5e64010fc
+          cd ..
 
       - name: Choose any SM8250 device in pmbootstrap to build kernel
         run: |
           cp xiaomi-alioth.cfg ~/.config/pmbootstrap_v3.cfg
-
-      - name: Overlay fixed deviceinfo
-        run: |
-          mkdir -p ~/.local/var/pmbootstrap/cache_git/pmaports/device/xiaomi-alioth
-          cp device/xiaomi-alioth/deviceinfo ~/.local/var/pmbootstrap/cache_git/pmaports/device/xiaomi-alioth/deviceinfo
 
       - name: Compile kernel with envkernel
         run: |
