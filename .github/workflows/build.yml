@@ -55,11 +55,14 @@ jobs:
         run: |
           mkdir out
 
+      - name: Overlay fixed deviceinfo
+        run: |
+          cp device/xiaomi-alioth/deviceinfo ~/.local/var/pmbootstrap/cache_git/pmaports/device/xiaomi-alioth/deviceinfo
+
       - name: Build xiaomi-alioth
         run: |
           cp xiaomi-alioth.cfg ~/.config/pmbootstrap_v3.cfg
           pmbootstrap install --password 147147
-          pmbootstrap install --android-recovery-zip --password 147147
           pmbootstrap export
           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-tianma-alioth.img
           cp /tmp/postmarketOS-export/xiaomi-alioth.img out/rootfs-xiaomi-alioth.img
