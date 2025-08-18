@@ -3,7 +3,7 @@ on:
   push:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 5' # Run every friday at midnight
+    - cron: '0 0 * * 5' # Run every Friday at midnight
 
 env:
   KERNEL_BRANCH: 6.12.1
@@ -26,21 +26,21 @@ jobs:
           ln -s "$PWD/pmbootstrap/pmbootstrap.py" ~/.local/bin/pmbootstrap
           pmbootstrap --version
 
-      - name: Set up pmaports
+      - name: Set up pmbootstrap non-interactively
         run: |
-          echo -e '\n\n' | pmbootstrap init || true
+          cp xiaomi-alioth.cfg ~/.config/pmbootstrap_v3.cfg
+          pmbootstrap init --noninteractive --config ~/.config/pmbootstrap_v3.cfg
+
+      - name: Switch pmaports to jambokill fork
+        run: |
           cd ~/.local/var/pmbootstrap/cache_git/pmaports
-          git remote add jambokill https://github.com/jambokill/pmaports.git
-          git fetch jambokill nikroks/alioth
-          git reset --hard jambokill/nikroks/alioth
+          git remote add jambokill https://github.com/jambokill/pmaports.git || true
+          git fetch jambokill
+          git checkout -B alioth jambokill/nikroks/alioth
 
       - name: Clone kernel sources
         run: |
           git clone https://github.com/mainlining/linux.git --single-branch --branch nikroks/alioth --depth 1 ./linux
-
-      - name: Choose any SM8250 device in pmbootstrap to build kernel
-        run: |
-          cp xiaomi-alioth.cfg ~/.config/pmbootstrap_v3.cfg
 
       - name: Compile kernel with envkernel
         run: |
@@ -51,15 +51,12 @@ jobs:
           make -j$(nproc)
           pmbootstrap build --envkernel linux-postmarketos-qcom-sm8250-alioth
 
-      - name: Create artifact directory
-        run: |
-          mkdir out
-
-      - name: Build xiaomi-alioth
+      - name: Build xiaomi-alioth rootfs and export
         run: |
           cp xiaomi-alioth.cfg ~/.config/pmbootstrap_v3.cfg
           pmbootstrap install --password 147147
           pmbootstrap export
+          mkdir -p out
           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-tianma-alioth.img
           cp /tmp/postmarketOS-export/xiaomi-alioth.img out/rootfs-xiaomi-alioth.img
 
