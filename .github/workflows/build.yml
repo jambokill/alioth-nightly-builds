@@ -30,9 +30,9 @@ jobs:
         run: |
           echo -e '\n\n' | pmbootstrap init || true
           cd ~/.local/var/pmbootstrap/cache_git/pmaports
-          git remote add mainlining https://github.com/jambokill/pmaports.git
-          git fetch mainlining nikroks/alioth
-          git reset --hard mainlining/nikroks/alioth
+          git remote add jambokill https://github.com/jambokill/pmaports.git
+          git fetch jambokill nikroks/alioth
+          git reset --hard jambokill/nikroks/alioth
 
       - name: Clone kernel sources
         run: |
