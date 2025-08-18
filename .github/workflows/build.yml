@@ -28,7 +28,7 @@ jobs:
 
       - name: Set up pmaports
         run: |
-          echo -e '\n\n' | pmbootstrap -m https://dl-cdn.alpinelinux.org/alpine/v3.17/ init || true
+          echo -e '\n\n' | pmbootstrap init || true
           cd ~/.local/var/pmbootstrap/cache_git/pmaports
           git remote add mainlining https://github.com/mainlining/pmaports.git
           git fetch mainlining nikroks/alioth
