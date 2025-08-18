@@ -29,8 +29,10 @@ jobs:
       - name: Set up pmaports
         run: |
           echo -e '\n\n' | pmbootstrap init || true
-          cd ~/.local/var/pmbootstrap/cache_git/pmaports
+          rm -rf ~/.local/var/pmbootstrap/cache_git/pmaports
           git clone --branch v24.12 --depth 1 https://gitlab.postmarketos.org/postmarketOS/pmaports.git ~/.local/var/pmbootstrap/cache_git/pmaports
+          cd ~/.local/var/pmbootstrap/cache_git/pmaports
+          git status
 
       - name: Clone kernel sources
         run: |
