@@ -1,11 +1,20 @@
 # SPDX-License-Identifier: GPL-2.0-only
 
 deviceinfo_format_version="0"
-
-deviceinfo_name="Xiaomi POCO F3 / Mi 11X / Redmi K40"
+deviceinfo_name="Xiaomi POCO F3"
 deviceinfo_manufacturer="Xiaomi"
-deviceinfo_codename="alioth"
+deviceinfo_codename="xiaomi-alioth"
+deviceinfo_year="2021"
 deviceinfo_arch="aarch64"
+deviceinfo_flash_kernel_on_update="true"
+
+# Device related
+deviceinfo_gpu_accelerated="true"
+deviceinfo_chassis="handset"
+deviceinfo_keyboard="false"
+deviceinfo_external_storage="false"
+deviceinfo_screen_width="1080"
+deviceinfo_screen_height="2400"
 
 # Boot image generation
 deviceinfo_generate_bootimg="true"
@@ -24,11 +33,9 @@ deviceinfo_flash_pagesize="4096"
 deviceinfo_bootimg_partition="boot"
 deviceinfo_rootfs_image_sector_size="4096"
 
-# Display panels
-deviceinfo_display="tianma huaxing"
-
 # Kernel command line (postmarketOS appends UUIDs here)
 deviceinfo_kernel_cmdline="quiet loglevel=2"
 
 # Additional flags
 deviceinfo_flash_method="fastboot"
+deviceinfo_bootimg_custom_args="--header_version 3 --os_version 12.0.0 --os_patch_level 2021-12"
