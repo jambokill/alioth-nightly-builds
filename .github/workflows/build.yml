@@ -28,7 +28,6 @@ jobs:
 
       - name: Set up pmaports
         run: |
-          git clone --branch v24.12 --depth 1 https://gitlab.postmarketos.org/postmarketOS/pmaports.git ~/.local/var/pmbootstrap/cache_git/pmaports
           echo -e '\n\n' | pmbootstrap init || true
           cd ~/.local/var/pmbootstrap/cache_git/pmaports
           git remote add mainlining https://github.com/mainlining/pmaports.git
