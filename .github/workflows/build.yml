@@ -29,7 +29,6 @@ jobs:
       - name: Set up pmbootstrap non-interactively
         run: |
           cp xiaomi-alioth.cfg ~/.config/pmbootstrap_v3.cfg
-          pmbootstrap init --noninteractive --config ~/.config/pmbootstrap_v3.cfg
 
       - name: Switch pmaports to jambokill fork
         run: |
