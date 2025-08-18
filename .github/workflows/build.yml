@@ -21,31 +21,22 @@ jobs:
 
       - name: Install pmbootstrap from git
         run: |
-          git clone https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git
-          cd pmbootstrap
-          git checkout a33112c2113d6e4ec6e94daef634896422309aff
-          cd ..
+          git clone --depth=1 https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git
           mkdir -p ~/.local/bin
           ln -s "$PWD/pmbootstrap/pmbootstrap.py" ~/.local/bin/pmbootstrap
           pmbootstrap --version
 
       - name: Set up pmaports
         run: |
-           echo -e '\n\n' | pmbootstrap init || true
-           REPO_FILE="$HOME/.local/var/pmbootstrap/chroot_xiaomi-alioth/etc/apk/repositories"
-           sed -i 's|http://dl-cdn.alpinelinux.org/alpine/edge/main|http://dl-cdn.alpinelinux.org/alpine/v3.21/main|' "$REPO_FILE"
-           sed -i 's|http://dl-cdn.alpinelinux.org/alpine/edge/community|http://dl-cdn.alpinelinux.org/alpine/v3.21/community|' "$REPO_FILE"
-           cd ~/.local/var/pmbootstrap/cache_git/pmaports || mkdir -p ~/.local/var/pmbootstrap/cache_git/pmaports && cd ~/.local/var/pmbootstrap/cache_git/pmaports
-           git remote add mainlining https://github.com/mainlining/pmaports.git
-           git fetch mainlining nikroks/alioth
-           git reset --hard mainlining/nikroks/alioth
+          echo -e '\n\n' | pmbootstrap init || true
+          cd ~/.local/var/pmbootstrap/cache_git/pmaports
+          git remote add mainlining https://github.com/jambokill/pmaports.git
+          git fetch mainlining nikroks/alioth
+          git reset --hard mainlining/nikroks/alioth
 
       - name: Clone kernel sources
         run: |
-          git clone https://github.com/mainlining/linux.git ./linux
-          cd linux
-          git checkout 732032692f6ae311bc35159b18e5b7c5e64010fc
-          cd ..
+          git clone https://github.com/mainlining/linux.git --single-branch --branch nikroks/alioth --depth 1 ./linux
 
       - name: Choose any SM8250 device in pmbootstrap to build kernel
         run: |
