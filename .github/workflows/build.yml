@@ -30,10 +30,8 @@ jobs:
         run: |
           echo -e '\n\n' | pmbootstrap init || true
           cd ~/.local/var/pmbootstrap/cache_git/pmaports
-          git remote add mainlining https://github.com/mainlining/pmaports.git
-          git fetch mainlining nikroks/alioth
-          git reset --hard mainlining/nikroks/alioth
-
+          git clone --branch v24.12 --depth 1 https://github.com/mainlining/pmaports.git ~/.local/var/pmbootstrap/cache_git/pmaports
+ 
       - name: Clone kernel sources
         run: |
           git clone https://github.com/mainlining/linux.git --single-branch --branch nikroks/alioth --depth 1 ./linux
