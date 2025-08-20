@@ -53,6 +53,22 @@ jobs:
          pmbootstrap chroot -- apk add python3 py3-pip gcc musl-dev python3-dev make
          pmbootstrap chroot -- pip3 install --break-system-packages dtschema
 
+          mkdir -p /tmp/dummy-py3-dt-schema
+          cat > /tmp/dummy-py3-dt-schema/APKBUILD << 'EOF'
+          pkgname=py3-dt-schema
+          pkgver=1.0
+          pkgrel=0
+          pkgdesc="Dummy package for py3-dt-schema (real: pip installed dtschema)"
+          arch="noarch"
+          license="MIT"
+          options="!check"
+          EOF
+          
+          cd /tmp/dummy-py3-dt-schema
+          echo "#!/bin/sh" > dummy
+          abuild -r
+          sudo apk add --allow-untrusted /tmp/packages/*/py3-dt-schema-*.apk
+
       - name: Compile kernel with envkernel
         run: |
           cd linux
