@@ -30,8 +30,6 @@ jobs:
         run: |
           echo -e '\n\n' | pmbootstrap init || true
           cd ~/.local/var/pmbootstrap/cache_git/pmaports
-          git fetch origin tag v24.12
-          git reset --hard v24.12
           git status
 
       - name: Clone kernel sources
