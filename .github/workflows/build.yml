@@ -29,12 +29,10 @@ jobs:
       - name: Set up pmaports
         run: |
           echo -e '\n\n' | pmbootstrap init || true
+          rm -rf ~/.local/var/pmbootstrap/cache_git/pmaports
+          git clone --branch nikroks/alioth --depth 1 https://github.com/mainlining/pmaports.git ~/.local/var/pmbootstrap/cache_git/pmaports
           cd ~/.local/var/pmbootstrap/cache_git/pmaports
-          git fetch origin tag v24.12
-          git reset --hard v24.12
-          git remote add mainlining https://github.com/mainlining/pmaports.git
-          git fetch mainlining nikroks/alioth
-          git checkout mainlining/nikroks/alioth -- device/testing/
+          git status
 
       - name: Clone kernel sources
         run: |
