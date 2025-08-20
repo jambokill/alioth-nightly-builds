@@ -55,8 +55,22 @@ jobs:
           source ../pmbootstrap/helpers/envkernel.sh
           make defconfig sm8250.config
           make -j$(nproc)
-          pmbootstrap -v build --envkernel linux-postmarketos-qcom-sm8250-alioth
-          pmbootstrap log
+          pmbootstrap --verbose build --envkernel linux-postmarketos-qcom-sm8250-alioth
+
+      - name: Save pmbootstrap log
+        if: always()  # This runs even if previous step failed
+        run: |
+          pmbootstrap log > pmbootstrap.log
+          cp ~/.local/var/pmbootstrap/*.log ./ 2>/dev/null || true
+
+      - name: Upload logs as artifact
+        if: always()  # Upload even if job fails
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs-${{ github.run_id }}
+          path: |
+            pmbootstrap.log
+            *.log
 
       - name: Create artifact directory
         run: |
