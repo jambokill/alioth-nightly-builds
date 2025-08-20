@@ -30,6 +30,9 @@ jobs:
         run: |
           echo -e '\n\n' | pmbootstrap init || true
           cd ~/.local/var/pmbootstrap/cache_git/pmaports
+          git remote add postmarketos https://gitlab.postmarketos.org/postmarketOS/pmaports.git
+          git fetch postmarketos v24.12
+          git reset --hard postmarketos/v24.12
           git status
 
       - name: Clone kernel sources
