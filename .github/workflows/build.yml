@@ -50,16 +50,7 @@ jobs:
 
       - name: Install packages manually without pmbootstrap's interference
         run: |
-         pmbootstrap chroot -- ash -c "
-         apk update
-         apk add \
-            abuild bash bc binutils bison \
-            binutils-aarch64 gcc-aarch64 \
-            diffutils elfutils-dev findutils flex \
-            g++ gcc gmp-dev linux-headers openssl-dev \
-            make musl-dev ncurses-dev perl sed \
-            yamllint yaml-dev xz
-          "
+         pmbootstrap chroot -- pip3 install dtschema
 
       - name: Compile kernel with envkernel
         run: |
