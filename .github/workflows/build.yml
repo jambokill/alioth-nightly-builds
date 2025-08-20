@@ -21,7 +21,7 @@ jobs:
 
       - name: Install pmbootstrap from git
         run: |
-          git clone --branch 3.0.0 --depth 1 https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git
+          git clone --branch 3.3.2 --depth 1 https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git
           mkdir -p ~/.local/bin
           ln -s "$PWD/pmbootstrap/pmbootstrap.py" ~/.local/bin/pmbootstrap
           pmbootstrap --version
