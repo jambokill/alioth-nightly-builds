@@ -21,7 +21,7 @@ jobs:
 
       - name: Install pmbootstrap from git
         run: |
-          git clone --branch 3.4.0 --depth 1 https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git
+          git clone --branch 3.3.2 --depth 1 https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git
           mkdir -p ~/.local/bin
           ln -s "$PWD/pmbootstrap/pmbootstrap.py" ~/.local/bin/pmbootstrap
           pmbootstrap --version
@@ -30,9 +30,11 @@ jobs:
         run: |
           echo -e '\n\n' | pmbootstrap init || true
           cd ~/.local/var/pmbootstrap/cache_git/pmaports
+          git fetch origin tag v24.12
+          git reset --hard v24.12
           git remote add mainlining https://github.com/mainlining/pmaports.git
           git fetch mainlining nikroks/alioth
-          git reset --hard mainlining/nikroks/alioth
+          git checkout mainlining/nikroks/alioth -- device/testing/
 
       - name: Clone kernel sources
         run: |
