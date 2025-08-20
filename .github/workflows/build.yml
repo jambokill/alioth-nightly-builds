@@ -60,18 +60,8 @@ jobs:
       - name: Save pmbootstrap log
         if: always()  # This runs even if previous step failed
         run: |
-          pmbootstrap log > pmbootstrap.log
-          cp ~/.local/var/pmbootstrap/*.log ./ 2>/dev/null || true
-
-      - name: Upload logs as artifact
-        if: always()  # Upload even if job fails
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-logs-${{ github.run_id }}
-          path: |
-            pmbootstrap.log
-            *.log
-
+          pmbootstrap log
+          
       - name: Create artifact directory
         run: |
           mkdir out
