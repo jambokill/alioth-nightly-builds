@@ -56,11 +56,6 @@ jobs:
           make defconfig sm8250.config
           make -j$(nproc)
           pmbootstrap --verbose build --envkernel linux-postmarketos-qcom-sm8250-alioth
-
-      - name: Save pmbootstrap log
-        if: always()  # This runs even if previous step failed
-        run: |
-          pmbootstrap log
           
       - name: Create artifact directory
         run: |
