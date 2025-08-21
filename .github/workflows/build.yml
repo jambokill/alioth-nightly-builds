@@ -31,8 +31,8 @@ jobs:
           echo -e '\n\n' | pmbootstrap init || true
           cd ~/.local/var/pmbootstrap/cache_git/pmaports
           git remote add postmarketos https://gitlab.postmarketos.org/postmarketOS/pmaports.git
-          git fetch postmarketos v25.06
-          git reset --hard postmarketos/v25.06
+          git fetch postmarketos v24.12
+          git reset --hard postmarketos/v24.12
           git remote add github https://github.com/mainlining/pmaports.git
           git fetch github nikroks/alioth
           git checkout github/nikroks/alioth -- device/testing/device-xiaomi-alioth/
