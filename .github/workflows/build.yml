@@ -31,8 +31,8 @@ jobs:
           echo -e '\n\n' | pmbootstrap init || true
           cd ~/.local/var/pmbootstrap/cache_git/pmaports
           git remote add postmarketos https://gitlab.postmarketos.org/postmarketOS/pmaports.git
-          git fetch postmarketos v24.12
-          git reset --hard postmarketos/v24.12
+          git fetch postmarketos v24.06
+          git reset --hard postmarketos/v24.06
           git remote add github https://github.com/mainlining/pmaports.git
           git fetch github nikroks/alioth
           git checkout github/nikroks/alioth -- device/testing/device-xiaomi-alioth/
@@ -47,27 +47,6 @@ jobs:
       - name: Choose any SM8250 device in pmbootstrap to build kernel
         run: |
           cp xiaomi-alioth.cfg ~/.config/pmbootstrap_v3.cfg
-
-      - name: Install packages manually without pmbootstrap's interference
-        run: |
-         pmbootstrap chroot -- apk add python3 py3-pip gcc musl-dev python3-dev make
-         pmbootstrap chroot -- pip3 install --break-system-packages dtschema
-
-          mkdir -p /tmp/dummy-py3-dt-schema
-          cat > /tmp/dummy-py3-dt-schema/APKBUILD << 'EOF'
-          pkgname=py3-dt-schema
-          pkgver=1.0
-          pkgrel=0
-          pkgdesc="Dummy package for py3-dt-schema (real: pip installed dtschema)"
-          arch="noarch"
-          license="MIT"
-          options="!check"
-          EOF
-          
-          cd /tmp/dummy-py3-dt-schema
-          echo "#!/bin/sh" > dummy
-          abuild -r
-          sudo apk add --allow-untrusted /tmp/packages/*/py3-dt-schema-*.apk
 
       - name: Compile kernel with envkernel
         run: |
