@@ -21,7 +21,7 @@ jobs:
 
       - name: Install pmbootstrap from git
         run: |
-          git clone --branch 3.0.0 --depth 1 https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git
+          git clone --branch 3.2.1 --depth 1 https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git
           mkdir -p ~/.local/bin
           ln -s "$PWD/pmbootstrap/pmbootstrap.py" ~/.local/bin/pmbootstrap
           pmbootstrap --version
@@ -31,8 +31,8 @@ jobs:
           echo -e '\n\n' | pmbootstrap init || true
           cd ~/.local/var/pmbootstrap/cache_git/pmaports
           git remote add postmarketos https://gitlab.postmarketos.org/postmarketOS/pmaports.git
-          git fetch postmarketos v24.06
-          git reset --hard postmarketos/v24.06
+          git fetch postmarketos v25.06
+          git reset --hard postmarketos/v25.06
           git remote add github https://github.com/mainlining/pmaports.git
           git fetch github nikroks/alioth
           git checkout github/nikroks/alioth -- device/testing/device-xiaomi-alioth/
