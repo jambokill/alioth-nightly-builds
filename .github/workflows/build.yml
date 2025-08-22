@@ -35,7 +35,9 @@ jobs:
           git reset --hard postmarketos/v24.12
           git remote add github https://github.com/jambokill/pmaports.git
           git fetch github nikroks/alioth
-          git reset --hard github/nikroks/alioth
+          git checkout github/nikroks/alioth -- device/testing/device-xiaomi-alioth/
+          git checkout github/nikroks/alioth -- device/testing/firmware-xiaomi-alioth/
+          git checkout github/nikroks/alioth -- device/testing/linux-postmarketos-qcom-sm8250-alioth/
           git status
 
       - name: Clone kernel sources
